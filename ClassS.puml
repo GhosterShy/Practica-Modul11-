@@ -1,0 +1,64 @@
+@startuml
+
+abstract class User {
+    - id: int
+    - name: String
+    - email: String
+    + register(): void
+    + login(): void
+}
+
+class Reader {
+    + borrowBook(book: Book): void
+    + returnBook(book: Book): void
+}
+
+class Librarian {
+    + addBook(book: Book, library: Library): void
+    + removeBook(book: Book, library: Library): void
+}
+
+class Book {
+    - title: String
+    - isbn: String
+    - authors: List<Author>
+    - publicationYear: int
+    - availabilityStatus: boolean
+    + isAvailable(): boolean
+    + changeAvailabilityStatus(status: boolean): void
+}
+
+class Library {
+    - books: List<Book>
+    - users: List<User>
+    - loans: List<Loan>
+    + addBook(book: Book): void
+    + removeBook(book: Book): void
+    + searchBooks(title: String): List<Book>
+    + generateReport(): void
+}
+
+class Loan {
+    - book: Book
+    - reader: Reader
+    - loanDate: LocalDate
+    - returnDate: LocalDate
+    + issueLoan(): void
+    + returnBook(): void
+}
+
+class Author {
+    - name: String
+    - birthYear: int
+}
+
+User <|-- Reader
+User <|-- Librarian
+Reader --> Book : borrows
+Reader --> Loan : creates
+Librarian --> Library : manages
+Library --> Book : contains
+Library --> Loan : records
+Book --> Author : written by
+
+@enduml

@@ -1,0 +1,17 @@
+@startuml
+package "Library System" {
+  [Book]
+  [Reader]
+  [Librarian]
+  [Catalog]
+  [AccountSystem]
+}
+
+
+[Catalog] --> [Book] : search by title, author, genre
+[Librarian] --> [Book] : issue and return books
+[Librarian] --> [Reader] : interact with readers
+[AccountSystem] --> [Book] : record book issue/return
+[AccountSystem] --> [Reader] : record reader's actions
+
+@enduml
